@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Desenho</title>
+  <style>
+    #canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="800" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let desenhando = false;
+    let ultimoX, ultimoY;
+
+    canvas.addEventListener('mousedown', (e) => {
+      desenhando = true;
+      ultimoX = e.offsetX;
+      ultimoY = e.offsetY;
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (desenhando) {
+        ctx.beginPath();
+        ctx.moveTo(ultimoX, ultimoY);
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+        ultimoX = e.offsetX;
+        ultimoY = e.offsetY;
+      }
+    });
+
+    canvas.addEventListener('mouseup', () => {
+      desenhando = false;
+    });
+  </script>
+</body>
+</html>
